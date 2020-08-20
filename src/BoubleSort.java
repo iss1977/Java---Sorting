@@ -20,50 +20,54 @@ public class BoubleSort {
 
     // MERGE SORT - SPLIT -----------------------------------------------------------------------
 
-    private static ArrayList<Integer> split(ArrayList<Integer> alist, int startPos, int endPos){
+    private static ArrayList<Integer> split(ArrayList<Integer> alist, int startPos, int endPos) {
+        ArrayList<Integer> array2=new ArrayList<>();
 
-        if(startPos == endPos){
-           return new ArrayList<Integer>(alist.subList(startPos, endPos));
+        if (startPos < endPos) {
 
-        }
 //        displayArray(alist);
 //        System.out.println();
-        int middlePos=((startPos + endPos) /2);
+            int middlePos = ((startPos + endPos) / 2);
 
-        ArrayList<Integer>leftarray = split(alist, startPos, middlePos);
-        ArrayList<Integer>rightarray = split(alist, middlePos+1, endPos);
+            ArrayList<Integer> leftarray = split(alist, startPos, middlePos);
+            ArrayList<Integer> rightarray = split(alist, middlePos + 1, endPos);
 
-        displayArray(leftarray);displayArray(rightarray);
-        System.out.println();
+           displayArray(leftarray);
+            displayArray(rightarray);
+            System.out.println();
 
         // addiere die 2 Arrays
-        ArrayList<Integer> array2;
-        int i=0,j=0,k =0;
-        int max_i = leftarray.size()-1;
-        int max_j = rightarray.size()-1;
-        while((i<=max_i-1) && (j<=max_j-1)){
-            if (leftarray.get(i) < rightarray.get(j)){
-                array2.add(leftarray.get(i)); i++;
-            } else{
-                array2.add(rightarray.get(j)); j++;
+
+        int i = 0, j = 0, k = 0;
+        int max_i = leftarray.size() - 1;
+        int max_j = rightarray.size() - 1;
+        while ((i <= max_i - 1) && (j <= max_j - 1)) {
+            if (leftarray.get(i) < rightarray.get(j)) {
+                array2.add(leftarray.get(i));
+                i++;
+            } else {
+                array2.add(rightarray.get(j));
+                j++;
             }
             k++;
         }
 
-        for ( int x=i ; x <= max_i; x++){
+        for (int x = i; x <= max_i; x++) {
             array2.add(leftarray.get(x));
             k++;
         }
 
-        for ( int x=j ; x <= max_j; x++){
+        for (int x = j; x <= max_j; x++) {
             array2.add(rightarray.get(x));
             k++;
         }
+    }
+
+    return new ArrayList<Integer>( alist.subList(startPos, endPos));
 
 
 
 
-        return array2;
     }
     // --------------------------------------------------------------------------------------------
 
@@ -155,17 +159,22 @@ public class BoubleSort {
             // Sending the array to sort methode - recursive
             System.out.println("\n\rSorting the array WITH  recursion ....");
             BoubleSort.recSortArray(numbers,-1);now2 = System.currentTimeMillis() ;
-        System.out.println("Time needed 2 sort (miliseconds) : "+(now2-now1));
-
         // Display the array after sort
         displayArray(numbers);
+        System.out.println("Time needed 2 sort (miliseconds) : "+(now2-now1));
+
+
 
 
         // reinit the array with the same values
         numbers = new ArrayList<Integer>(numbersOriginal);
 
         // Merge sort
-        split(numbers,0, numbers.size()-1);
+        numbers= split(numbers,0, numbers.size()-1);
+        // Display the array after sort
+
+        System.out.println("Merge Sort:");
+        displayArray(numbers);
 
     }
 }
