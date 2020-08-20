@@ -17,31 +17,15 @@ public class BoubleSort {
             }
         }
     }
-
-    // MERGE SORT - SPLIT -----------------------------------------------------------------------
-
-    private static ArrayList<Integer> split(ArrayList<Integer> alist, int startPos, int endPos) {
+// COMBINE 2 ARRAYS ----------------------------------------------------------------
+    private static ArrayList<Integer> combineArrays(ArrayList<Integer>leftarray, ArrayList<Integer>rightarray){
+        int i=0,j=0,k=0;
         ArrayList<Integer> array2=new ArrayList<>();
 
-        if (startPos < endPos) {
+        int max_i = leftarray.size() - 1; // last index on "i"
+        int max_j = rightarray.size() - 1; //last index on "j"
 
-//        displayArray(alist);
-//        System.out.println();
-            int middlePos = ((startPos + endPos) / 2);
-
-            ArrayList<Integer> leftarray = split(alist, startPos, middlePos);
-            ArrayList<Integer> rightarray = split(alist, middlePos + 1, endPos);
-
-           displayArray(leftarray);
-            displayArray(rightarray);
-            System.out.println();
-
-        // addiere die 2 Arrays
-
-        int i = 0, j = 0, k = 0;
-        int max_i = leftarray.size() - 1;
-        int max_j = rightarray.size() - 1;
-        while ((i <= max_i - 1) && (j <= max_j - 1)) {
+        while ((i <= max_i ) && (j <= max_j )) {
             if (leftarray.get(i) < rightarray.get(j)) {
                 array2.add(leftarray.get(i));
                 i++;
@@ -61,9 +45,45 @@ public class BoubleSort {
             array2.add(rightarray.get(x));
             k++;
         }
+        return array2;
     }
+    // MERGE SORT - SPLIT -----------------------------------------------------------------------
 
-    return new ArrayList<Integer>( alist.subList(startPos, endPos));
+    private static ArrayList<Integer> split(ArrayList<Integer> alist, int startPos_inc, int endPos_excl) {
+        ArrayList<Integer> array2=new ArrayList<>();
+        System.out.println("\r\n#"); // signals and enter in the split procedure
+        int endPos= endPos_excl-1;
+
+        if (startPos_inc < endPos) {
+
+//        displayArray(alist);
+//        System.out.println();
+            int middlePos = (startPos_inc + endPos) / 2 ;
+
+
+            System.out.print("Spliting the array:");displayArray(new ArrayList<Integer>(alist.subList(startPos_inc,endPos_excl)));System.out.print(" with :");
+            System.out.println("start:("+startPos_inc+")->stop:("+endPos+") Mitte:"+middlePos);
+            System.out.print(" => Left list :");displayArray(new ArrayList<Integer>(alist.subList(startPos_inc, middlePos+1)));System.out.println();
+            System.out.print(" => Right list:"); displayArray(new ArrayList<Integer>(alist.subList(middlePos+1,endPos+1)));System.out.println("\n\r");
+
+
+
+            ArrayList<Integer> leftArray = split(alist, startPos_inc, middlePos+1);
+            ArrayList<Integer> rightArray = split(alist, middlePos + 1, endPos_excl);
+
+            System.out.println("Arrays to combine:");
+            System.out.print("left :(");displayArray(leftArray);
+            System.out.print(") --  ");
+            System.out.print("right:(");displayArray(rightArray);
+            System.out.println(")");
+
+            array2 = combineArrays(leftArray,rightArray);
+        }
+        else {
+            array2=new ArrayList<Integer>(alist.subList(startPos_inc,endPos_excl));
+        }
+
+    return array2;
 
 
 
@@ -107,7 +127,7 @@ public class BoubleSort {
             if (i != (alist.size() - 1)) {
                 System.out.print(alist.get(i) + ",");
             } else {
-                System.out.println(alist.get(i));
+                System.out.print(alist.get(i));
             }
         }
     }
@@ -156,9 +176,9 @@ public class BoubleSort {
 
 
         now1 = System.currentTimeMillis() ;
-            // Sending the array to sort methode - recursive
-            System.out.println("\n\rSorting the array WITH  recursion ....");
-            BoubleSort.recSortArray(numbers,-1);now2 = System.currentTimeMillis() ;
+        // Sending the array to sort methode - recursive
+        System.out.println("\n\rSorting the array WITH  recursion ....");
+        BoubleSort.recSortArray(numbers,-1);now2 = System.currentTimeMillis() ;
         // Display the array after sort
         displayArray(numbers);
         System.out.println("Time needed 2 sort (miliseconds) : "+(now2-now1));
@@ -170,11 +190,51 @@ public class BoubleSort {
         numbers = new ArrayList<Integer>(numbersOriginal);
 
         // Merge sort
-        numbers= split(numbers,0, numbers.size()-1);
-        // Display the array after sort
 
-        System.out.println("Merge Sort:");
+        System.out.println("Merge sort --------------");
+        numbers.clear();
+
+        numbers.add(211);numbers.add(27);numbers.add(19);numbers.add(39);numbers.add(25);numbers.add(65);numbers.add(44);numbers.add(34);numbers.add(314);
+
+        System.out.println("Test array to sort, starting values :");
         displayArray(numbers);
+        ArrayList<Integer> temp_numbers = new ArrayList<Integer>(numbers);
+        System.out.println();
+        //---------------------------------
+
+
+        numbers= split(numbers,0, numbers.size()-1+1);
+
+        // Display again array before sort .....
+        System.out.println("Test array to sort, starting values :");
+        displayArray(temp_numbers);
+        
+        System.out.println();
+        //---------------------------------
+        // Display the array after sort
+        System.out.println("Merge Sort output:");
+        displayArray(numbers);
+/*
+
+
+        // Combine 2 arrays test --------
+        System.out.println("Test output 2 arrays combined:");
+        ArrayList<Integer> listA= new ArrayList<Integer>();
+        ArrayList<Integer> listB= new ArrayList<Integer>();
+        ArrayList<Integer> listAB= new ArrayList<Integer>();
+        listA.add(11);listA.add(20);listA.add(24);
+        listB.add(21);listB.add(22);listB.add(29);listB.add(39);listB.add(45);
+
+        listAB=combineArrays(listA,listB);
+        displayArray(listA);
+        displayArray(listB);
+        displayArray(listAB);
+        //---------------------------------
+
+*/
+
+
+
 
     }
 }
