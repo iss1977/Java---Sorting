@@ -51,17 +51,14 @@ public class BoubleSort {
 
     private static ArrayList<Integer> split(ArrayList<Integer> alist, int startPos_inc, int endPos_excl) {
         ArrayList<Integer> array2=new ArrayList<>();
-        System.out.println("\r\n#"); // signals and enter in the split procedure
+//        System.out.println("#"); // signals and enter in the split procedure
         int endPos= endPos_excl-1;
 
         if (startPos_inc < endPos) {
 
-//        displayArray(alist);
-//        System.out.println();
             int middlePos = (startPos_inc + endPos) / 2 ;
 
-
-            System.out.print("Spliting the array:");displayArray(new ArrayList<Integer>(alist.subList(startPos_inc,endPos_excl)));System.out.print(" with :");
+            System.out.print("Splitting the array:");displayArray(new ArrayList<Integer>(alist.subList(startPos_inc,endPos_excl)));System.out.print(" with :");
             System.out.println("start:("+startPos_inc+")->stop:("+endPos+") Mitte:"+middlePos);
             System.out.print(" => Left list :");displayArray(new ArrayList<Integer>(alist.subList(startPos_inc, middlePos+1)));System.out.println();
             System.out.print(" => Right list:"); displayArray(new ArrayList<Integer>(alist.subList(middlePos+1,endPos+1)));System.out.println("\n\r");
@@ -71,13 +68,15 @@ public class BoubleSort {
             ArrayList<Integer> leftArray = split(alist, startPos_inc, middlePos+1);
             ArrayList<Integer> rightArray = split(alist, middlePos + 1, endPos_excl);
 
-            System.out.println("Arrays to combine:");
+            System.out.print("Arrays to combine:");
             System.out.print("left :(");displayArray(leftArray);
             System.out.print(") --  ");
             System.out.print("right:(");displayArray(rightArray);
-            System.out.println(")");
+            System.out.print(")  => comb. array: (");
 
             array2 = combineArrays(leftArray,rightArray);
+
+            displayArray(array2);System.out.println(")");
         }
         else {
             array2=new ArrayList<Integer>(alist.subList(startPos_inc,endPos_excl));
@@ -143,7 +142,7 @@ public class BoubleSort {
         // Generating random numbers inn the list
         System.out.println("Generating list of numbers to sort ...");
         Random rand = new Random();
-        for (int i=1 ; i<= 50 ; i++){
+        for (int i=1 ; i<= 6000 ; i++){
             numbersOriginal.add(rand.nextInt(100));
         }
 
@@ -192,11 +191,12 @@ public class BoubleSort {
         // Merge sort
 
         System.out.println("Merge sort --------------");
-        numbers.clear();
 
-        numbers.add(211);numbers.add(27);numbers.add(19);numbers.add(39);numbers.add(25);numbers.add(65);numbers.add(44);numbers.add(34);numbers.add(314);
+        // uncomment to define the numbers manually
+//        numbers.clear();
+//        numbers.add(211);numbers.add(27);numbers.add(19);numbers.add(39);numbers.add(25);numbers.add(65);numbers.add(44);numbers.add(34);numbers.add(314);
 
-        System.out.println("Test array to sort, starting values :");
+        System.out.println("Array to sort, starting values :");
         displayArray(numbers);
         ArrayList<Integer> temp_numbers = new ArrayList<Integer>(numbers);
         System.out.println();
