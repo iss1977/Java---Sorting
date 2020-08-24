@@ -203,38 +203,21 @@ public class BoubleSort {
         //---------------------------------
 
 
+        now1 = System.currentTimeMillis() ;
         numbers= split(numbers,0, numbers.size()-1+1);
+        now2 = System.currentTimeMillis() ;
 
         // Display again array before sort .....
         System.out.println("Test array to sort, starting values :");
         displayArray(temp_numbers);
-        
-        System.out.println();
+
+
         //---------------------------------
         // Display the array after sort
         System.out.println("Merge Sort output:");
         displayArray(numbers);
-/*
-
-
-        // Combine 2 arrays test --------
-        System.out.println("Test output 2 arrays combined:");
-        ArrayList<Integer> listA= new ArrayList<Integer>();
-        ArrayList<Integer> listB= new ArrayList<Integer>();
-        ArrayList<Integer> listAB= new ArrayList<Integer>();
-        listA.add(11);listA.add(20);listA.add(24);
-        listB.add(21);listB.add(22);listB.add(29);listB.add(39);listB.add(45);
-
-        listAB=combineArrays(listA,listB);
-        displayArray(listA);
-        displayArray(listB);
-        displayArray(listAB);
-        //---------------------------------
-
-*/
-
-
-
+        System.out.println();
+        System.out.println("Time needed 2 sort (miliseconds) : "+(now2-now1));
 
     }
 }
